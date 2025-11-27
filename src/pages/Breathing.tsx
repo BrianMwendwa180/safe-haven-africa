@@ -72,35 +72,35 @@ const Breathing = () => {
   return (
     <div className="min-h-screen bg-gradient-subtle">
       {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
-          <Link to="/" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors">
-            <ArrowLeft className="w-5 h-5 mr-2" />
-            <span className="font-medium">Back to Home</span>
+      <header className="border-b border-border bg-card/50 backdrop-blur-sm animate-fade-in">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+          <Link to="/" className="inline-flex items-center text-primary hover:text-primary/80 transition-all hover:scale-105">
+            <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+            <span className="text-sm sm:text-base font-medium">Back to Home</span>
           </Link>
         </div>
       </header>
 
       {/* Main Content */}
-      <section className="container mx-auto px-4 py-12">
-        <div className="max-w-2xl mx-auto space-y-8">
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="max-w-2xl mx-auto space-y-6 sm:space-y-8">
           {/* Title */}
-          <div className="text-center space-y-3">
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground">
+          <div className="text-center space-y-2 sm:space-y-3 animate-fade-in">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground px-2">
               Guided Breathing Exercise
             </h1>
-            <p className="text-muted-foreground">
+            <p className="text-sm sm:text-base text-muted-foreground px-4">
               Box breathing (4-4-4) helps calm your nervous system and reduce anxiety
             </p>
           </div>
 
           {/* Breathing Circle */}
-          <Card className={`p-12 transition-all duration-1000 ${getPhaseColor()} border-2`}>
-            <div className="flex flex-col items-center justify-center space-y-8">
+          <Card className={`p-6 sm:p-8 md:p-12 transition-all duration-1000 ${getPhaseColor()} border-2 animate-scale-in`}>
+            <div className="flex flex-col items-center justify-center space-y-6 sm:space-y-8">
               {/* Animated Circle */}
               <div 
                 className={`
-                  w-48 h-48 md:w-64 md:h-64 rounded-full 
+                  w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full 
                   flex items-center justify-center
                   transition-all duration-1000
                   ${phase === "inhale" ? "scale-125" : ""}
@@ -111,31 +111,31 @@ const Breathing = () => {
                   ${phase === "exhale" ? "bg-secondary/20" : ""}
                 `}
               >
-                <div className="text-center">
-                  <p className="text-6xl md:text-8xl font-bold text-foreground">
+                <div className="text-center px-4">
+                  <p className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-foreground">
                     {countdown}
                   </p>
-                  <p className="text-lg md:text-xl font-medium text-muted-foreground mt-2">
+                  <p className="text-base sm:text-lg md:text-xl font-medium text-muted-foreground mt-2">
                     {getPhaseText()}
                   </p>
                 </div>
               </div>
 
               {/* Controls */}
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto px-4">
                 {!isActive ? (
-                  <Button onClick={handleStart} size="lg" className="bg-gradient-calm">
-                    <Play className="w-5 h-5 mr-2" />
+                  <Button onClick={handleStart} size="lg" className="bg-gradient-calm hover:scale-105 transition-all w-full sm:w-auto">
+                    <Play className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                     Start
                   </Button>
                 ) : (
-                  <Button onClick={handlePause} size="lg" variant="outline">
-                    <Pause className="w-5 h-5 mr-2" />
+                  <Button onClick={handlePause} size="lg" variant="outline" className="hover:scale-105 transition-all w-full sm:w-auto">
+                    <Pause className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                     Pause
                   </Button>
                 )}
-                <Button onClick={handleReset} size="lg" variant="outline">
-                  <RotateCcw className="w-5 h-5 mr-2" />
+                <Button onClick={handleReset} size="lg" variant="outline" className="hover:scale-105 transition-all w-full sm:w-auto">
+                  <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                   Reset
                 </Button>
               </div>
@@ -143,9 +143,9 @@ const Breathing = () => {
           </Card>
 
           {/* Instructions */}
-          <Card className="p-6 bg-muted/30">
-            <h3 className="text-xl font-semibold mb-4 text-foreground">How to Use Box Breathing</h3>
-            <ol className="space-y-3 text-muted-foreground">
+          <Card className="p-5 sm:p-6 bg-muted/30 animate-fade-in [animation-delay:200ms]">
+            <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-foreground">How to Use Box Breathing</h3>
+            <ol className="space-y-2 sm:space-y-3 text-sm sm:text-base text-muted-foreground">
               <li className="flex gap-3">
                 <span className="font-semibold text-primary">1.</span>
                 <span>Find a comfortable seated position in a quiet space</span>
@@ -174,12 +174,12 @@ const Breathing = () => {
           </Card>
 
           {/* Benefits */}
-          <Card className="p-6">
-            <h3 className="text-xl font-semibold mb-3 text-foreground">Why This Helps</h3>
-            <p className="text-muted-foreground mb-4">
+          <Card className="p-5 sm:p-6 animate-fade-in [animation-delay:300ms]">
+            <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Why This Helps</h3>
+            <p className="text-sm sm:text-base text-muted-foreground mb-3 sm:mb-4">
               Box breathing activates your parasympathetic nervous system, which helps:
             </p>
-            <ul className="space-y-2 text-muted-foreground">
+            <ul className="space-y-2 text-sm sm:text-base text-muted-foreground">
               <li className="flex gap-2">
                 <span className="text-primary">•</span>
                 <span>Reduce immediate anxiety and panic</span>
