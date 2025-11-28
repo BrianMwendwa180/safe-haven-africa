@@ -2,35 +2,112 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowLeft, Lock, Save, Trash2, Plus } from "lucide-react";
+import {
+  ArrowLeft,
+  Lock,
+  Save,
+  Trash2,
+  Plus,
+  AlertCircle,
+  Loader2,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
+import { useApi, useFetch } from "@/hooks/useApi";
+import { journalAPI, JournalEntry as ApiJournalEntry } from "@/services/api";
 
-interface JournalEntry {
+interface JournalEntry extends ApiJournalEntry {
   id: string;
   date: string;
   content: string;
 }
 
 const Journal = () => {
-  const [entries, setEntries] = useState<JournalEntry[]>([]);
+  const { user, isAuthenticated } = useAuth();
+  const { toast } = useToast();
   const [currentEntry, setCurrentEntry] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const { toast } = useToast();
+  const [editingId, setEditingId] = useState<string | null>(null);
 
-  // Load entries from localStorage on mount
-  useEffect(() => {
-    const saved = localStorage.getItem("journal-entries");
-    if (saved) {
-      try {
-        setEntries(JSON.parse(saved));
-      } catch (e) {
-        console.error("Failed to load journal entries");
-      }
+  // Fetch entries
+  const {
+    data: entries = [],
+    isLoading: entriesLoading,
+    error: entriesError,
+    refetch: refetchEntries,
+  } = useFetch(journalAPI.getEntries);
+
+  // Create entry
+  const { execute: createEntry, isLoading: createLoading } = useApi(
+    (content: string, mood?: string) => journalAPI.createEntry(content, mood),
+    {
+      onSuccess: () => {
+        toast({
+          title: "Entry saved",
+          description: "Your journal entry has been saved to the server.",
+        });
+        setCurrentEntry("");
+        setIsEditing(false);
+        refetchEntries();
+      },
+      onError: (error) => {
+        toast({
+          title: "Error saving entry",
+          description: error,
+          variant: "destructive",
+        });
+      },
     }
-  }, []);
+  );
 
-  const handleSave = () => {
+  // Update entry
+  const { execute: updateEntry, isLoading: updateLoading } = useApi(
+    (id: string, content: string, mood?: string) =>
+      journalAPI.updateEntry(id, content, mood),
+    {
+      onSuccess: () => {
+        toast({
+          title: "Entry updated",
+          description: "Your journal entry has been updated.",
+        });
+        setCurrentEntry("");
+        setIsEditing(false);
+        setEditingId(null);
+        refetchEntries();
+      },
+      onError: (error) => {
+        toast({
+          title: "Error updating entry",
+          description: error,
+          variant: "destructive",
+        });
+      },
+    }
+  );
+
+  // Delete entry
+  const { execute: deleteEntry, isLoading: deleteLoading } = useApi(
+    journalAPI.deleteEntry,
+    {
+      onSuccess: () => {
+        toast({
+          title: "Entry deleted",
+          description: "The entry has been removed from your journal.",
+        });
+        refetchEntries();
+      },
+      onError: (error) => {
+        toast({
+          title: "Error deleting entry",
+          description: error,
+          variant: "destructive",
+        });
+      },
+    }
+  );
+
+  const handleSave = async () => {
     if (!currentEntry.trim()) {
       toast({
         title: "Entry is empty",
@@ -40,33 +117,38 @@ const Journal = () => {
       return;
     }
 
-    const newEntry: JournalEntry = {
-      id: Date.now().toString(),
-      date: new Date().toISOString(),
-      content: currentEntry,
-    };
+    if (!isAuthenticated) {
+      toast({
+        title: "Not authenticated",
+        description: "Please log in to save journal entries.",
+        variant: "destructive",
+      });
+      return;
+    }
 
-    const updatedEntries = [newEntry, ...entries];
-    setEntries(updatedEntries);
-    localStorage.setItem("journal-entries", JSON.stringify(updatedEntries));
-    setCurrentEntry("");
-    setIsEditing(false);
-
-    toast({
-      title: "Entry saved",
-      description: "Your thoughts have been securely saved locally.",
-    });
+    try {
+      if (editingId) {
+        await updateEntry(editingId, currentEntry);
+      } else {
+        await createEntry(currentEntry);
+      }
+    } catch (e) {
+      console.error("Error saving entry:", e);
+    }
   };
 
-  const handleDelete = (id: string) => {
-    const updatedEntries = entries.filter((e) => e.id !== id);
-    setEntries(updatedEntries);
-    localStorage.setItem("journal-entries", JSON.stringify(updatedEntries));
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteEntry(id);
+    } catch (e) {
+      console.error("Error deleting entry:", e);
+    }
+  };
 
-    toast({
-      title: "Entry deleted",
-      description: "The entry has been removed from your journal.",
-    });
+  const handleEdit = (entry: JournalEntry) => {
+    setEditingId(entry._id || entry.id);
+    setCurrentEntry(entry.content);
+    setIsEditing(true);
   };
 
   const formatDate = (isoString: string) => {

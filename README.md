@@ -14,40 +14,16 @@ Resilience Hub is a web application designed to support survivors of digital har
 ## Application Functionality Flow
 
 ```mermaid
-flowchart TD
-    Start["🏥 User Enters Resilience Hub"]
-    
-    Start --> Category["Select Feature Category"]
-    
-    Category --> Breathing["🫁 Breathing Exercises"]
-    Category --> CBT["🧠 CBT Modules"]
-    Category --> Journal["📓 Journal"]
-    Category --> Resources["🔗 Resources"]
-    
-    Breathing --> BreathDesc["Immediate Relief<br/>Grounding Techniques"]
-    CBT --> CBTMenu["5 Evidence-Based<br/>Therapy Exercises"]
-    Journal --> JournalDesc["Private & Encrypted<br/>Personal Documentation"]
-    Resources --> ResDesc["Verified Local<br/>Support Services"]
-    
-    BreathDesc --> Privacy["🔒 Privacy First:<br/>No Tracking • No Data • Anonymous"]
-    CBTMenu --> Privacy
-    JournalDesc --> Privacy
-    ResDesc --> Privacy
-    
-    Privacy --> FinalEnd["💪 Empowered & Supported"]
-    
-    classDef startStyle fill:#4CAF50,stroke:#2E7D32,stroke-width:3px,color:#fff
-    classDef mainStyle fill:#2196F3,stroke:#1565C0,stroke-width:2px,color:#fff
-    classDef featureStyle fill:#FF9800,stroke:#E65100,stroke-width:2px,color:#fff
-    classDef privacyStyle fill:#00BCD4,stroke:#00838F,stroke-width:2px,color:#fff
-    classDef finalStyle fill:#4CAF50,stroke:#2E7D32,stroke-width:3px,color:#fff
-    
-    class Start startStyle
-    class Category mainStyle
-    class Breathing,CBT,Journal,Resources mainStyle
-    class BreathDesc,CBTMenu,JournalDesc,ResDesc featureStyle
-    class Privacy privacyStyle
-    class FinalEnd finalStyle
+graph TD;
+    A[User Enters Resilience Hub] --> B[Breathing Exercises];
+    A --> C[CBT Modules];
+    C --> C1[CBT Exercise 1];
+    C --> C2[CBT Exercise 2];
+    C --> C3[CBT Exercise 3];
+    C --> C4[CBT Exercise 4];
+    C --> C5[CBT Exercise 5];
+    A --> D[Journal];
+    A --> E[Resources];
 ```
 
 The application prioritizes user privacy with no tracking, no data collection, and full anonymity to ensure a supportive space for recovery.
