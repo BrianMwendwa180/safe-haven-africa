@@ -1,13 +1,42 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Loader2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useApi } from "@/hooks/useApi";
+import { cbtAPI } from "@/services/api";
+import { useToast } from "@/hooks/use-toast";
+
+const MODULE_ID = "4"; // Unique identifier for this module
 
 const CBTExercise4 = () => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+  const { toast } = useToast();
   const [step, setStep] = useState(0);
   const [responses, setResponses] = useState<string[]>([]);
+
+  // Update progress when module completes
+  const { execute: updateProgress, isLoading: updateLoading } = useApi(
+    (moduleId: string, completed: boolean) =>
+      cbtAPI.updateProgress(moduleId, completed),
+    {
+      onSuccess: () => {
+        toast({
+          title: "Module completed!",
+          description: "Your progress has been saved.",
+        });
+      },
+      onError: (error) => {
+        toast({
+          title: "Error saving progress",
+          description: error,
+          variant: "destructive",
+        });
+      },
+    }
+  );
 
   const steps = [
     {
@@ -190,18 +219,43 @@ const CBTExercise4 = () => {
             Be patient with yourself. Rebuilding trust takes time, but each small step counts.
           </p>
           <Button
-            onClick={() => {
-              // Mark as completed in localStorage
-              const completedModules = JSON.parse(localStorage.getItem("completedModules") || "[]");
-              if (!completedModules.includes("4")) {
-                completedModules.push("4");
-                localStorage.setItem("completedModules", JSON.stringify(completedModules));
+            onClick={async () => {
+              // Mark as completed in API if authenticated
+              if (isAuthenticated) {
+                try {
+                  await updateProgress(MODULE_ID, true);
+                  navigate("/cbt-modules");
+                } catch (e) {
+                  console.error("Error updating progress:", e);
+                  // Still navigate even if API fails
+                  navigate("/cbt-modules");
+                }
+              } else {
+                // Fallback to localStorage if not authenticated
+                const completedModules = JSON.parse(
+                  localStorage.getItem("completedModules") || "[]"
+                );
+                if (!completedModules.includes(MODULE_ID)) {
+                  completedModules.push(MODULE_ID);
+                  localStorage.setItem(
+                    "completedModules",
+                    JSON.stringify(completedModules)
+                  );
+                }
+                navigate("/cbt-modules");
               }
-              navigate("/cbt-modules");
             }}
+            disabled={updateLoading}
             className="bg-gradient-calm"
           >
-            Return to Modules
+            {updateLoading ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Saving...
+              </>
+            ) : (
+              "Return to Modules"
+            )}
           </Button>
         </div>
       ),
