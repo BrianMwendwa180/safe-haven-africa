@@ -10,10 +10,15 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'http://localhost:5000/api',
         changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
+  },
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
