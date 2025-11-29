@@ -19,6 +19,7 @@ import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./contexts/AuthContext";
 
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -30,6 +31,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />
+            
             <Route path="/" element={<ProtectedRoute><Index /></ProtectedRoute>} />
             <Route path="/breathing" element={<ProtectedRoute><Breathing /></ProtectedRoute>} />
             <Route path="/cbt-modules" element={<ProtectedRoute><CBTModules /></ProtectedRoute>} />
