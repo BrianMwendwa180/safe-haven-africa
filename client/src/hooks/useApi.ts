@@ -81,6 +81,7 @@ export const useFetch = <T,>(
       setState({ data: result, isLoading: false, error: null });
     } catch (error) {
       const errorMessage = getErrorMessage(error);
+      console.error('useFetch error:', { errorMessage, error });
       setState({ data: null, isLoading: false, error: errorMessage });
     }
   }, [apiFunction]);

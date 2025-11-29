@@ -146,11 +146,23 @@ const CBTModules = () => {
               <Card className="p-6 border-destructive/50 bg-destructive/5">
                 <div className="flex items-start gap-3">
                   <AlertCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="font-semibold text-destructive mb-1">Unable to load modules</h4>
-                    <p className="text-sm text-muted-foreground">
-                      {modulesError || "The modules couldn't be loaded. Please try refreshing the page."}
-                    </p>
+                  <div className="space-y-3">
+                    <div>
+                      <h4 className="font-semibold text-destructive mb-1">Unable to load modules</h4>
+                      <p className="text-sm text-muted-foreground">
+                        {modulesError ? `Error: ${modulesError}` : "The modules couldn't be loaded. Please try refreshing the page."}
+                      </p>
+                    </div>
+                    {modulesError && (
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => window.location.reload()}
+                        className="mt-2"
+                      >
+                        Refresh Page
+                      </Button>
+                    )}
                   </div>
                 </div>
               </Card>

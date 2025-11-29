@@ -39,7 +39,11 @@ const cbtModules = [
 // @route   GET /api/cbt/modules
 // @access  Public (or Private if needed)
 exports.getModules = asyncHandler(async (req, res) => {
-  res.json(cbtModules);
+  res.status(200).json({
+    success: true,
+    data: cbtModules,
+    message: 'CBT modules retrieved successfully'
+  });
 });
 
 // @desc    Get CBT progress for user
@@ -56,7 +60,11 @@ exports.getProgress = asyncHandler(async (req, res) => {
       completedAt: userProgress ? userProgress.completedAt : null,
     };
   });
-  res.json(modulesWithProgress);
+  res.status(200).json({
+    success: true,
+    data: modulesWithProgress,
+    message: 'User progress retrieved successfully'
+  });
 });
 
 // @desc    Update CBT progress for user
@@ -78,7 +86,11 @@ exports.updateProgress = asyncHandler(async (req, res) => {
     { new: true, upsert: true }
   );
 
-  res.json(progress);
+  res.status(200).json({
+    success: true,
+    data: progress,
+    message: 'Progress updated successfully'
+  });
 });
 
 // @desc    Save CBT response
@@ -128,5 +140,14 @@ exports.saveResponse = asyncHandler(async (req, res) => {
   journalEntry.updatedAt = new Date();
   await journalEntry.save();
 
-  res.json({ success: true, message: 'Response saved successfully' });
+  res.status(200).json({
+    success: true,
+    data: { 
+      moduleId, 
+      stepId, 
+      response,
+      savedAt: new Date()
+    },
+    message: 'Response saved successfully'
+  });
 });

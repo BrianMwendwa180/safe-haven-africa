@@ -348,6 +348,16 @@ export function handleApiError(error: unknown): ApiErrorDetail {
       error.message ||
       "An error occurred";
 
+    // Log detailed error info for debugging
+    console.error('API Error Details:', {
+      status,
+      message,
+      url: error.config?.url,
+      method: error.config?.method,
+      data: error.response?.data,
+      statusText: error.response?.statusText,
+    });
+
     return {
       message,
       status,
@@ -355,6 +365,7 @@ export function handleApiError(error: unknown): ApiErrorDetail {
     };
   }
 
+  console.error('Unexpected error:', error);
   return {
     message: "An unexpected error occurred",
     status: 500,
