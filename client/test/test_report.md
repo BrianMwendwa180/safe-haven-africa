@@ -1,7 +1,7 @@
 # ✅ Resilience Hub – Test Execution Report  
 **Version:** 1.0  
 **Date:** 29/11/2025  
-**Prepared By:** QA Team  
+**Prepared By:** QA  
 **Test Cycle:** Hackathon MVP Testing
 
 ---
