@@ -23,6 +23,22 @@ const journalEntrySchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+// Update the updatedAt timestamp before saving
+journalEntrySchema.pre('save', function(next) {
+  this.updatedAt = Date.now();
+  next();
+});
+
+// Update the updatedAt timestamp before findByIdAndUpdate
+journalEntrySchema.pre('findByIdAndUpdate', function(next) {
+  this.set({ updatedAt: Date.now() });
+  next();
 });
 
 module.exports = mongoose.model('JournalEntry', journalEntrySchema);
