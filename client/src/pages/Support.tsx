@@ -7,7 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ArrowLeft, Send } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { messagesAPI, Message } from "@/services/api";
+import { messagesAPI, Message, API_BASE_URL } from "@/services/api";
 
 
 
@@ -40,8 +40,8 @@ const Support = () => {
   // Manage socket lifecycle
   useEffect(() => {
     setConnectionStatus('connecting');
-    const url = import.meta.env.VITE_SERVER_URL || "http://localhost:5000";
-    const s = io(url, {
+    const serverUrl = API_BASE_URL.replace('/api', '');
+    const s = io(serverUrl, {
       auth: { token },
       reconnectionAttempts: 5,
       transports: ['websocket', 'polling'],
@@ -78,7 +78,7 @@ const Support = () => {
       s.close();
       socketRef.current = null;
     };
-  }, [token, user]);
+  }, [token, user, API_BASE_URL]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
