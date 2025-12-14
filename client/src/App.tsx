@@ -14,6 +14,7 @@ import CBTExercise4 from "./pages/CBTExercise4";
 import CBTExercise5 from "./pages/CBTExercise5";
 import Journal from "./pages/Journal";
 import Resources from "./pages/Resources";
+import Support from "./pages/Support";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -42,6 +43,7 @@ const App = () => (
             <Route path="/cbt-modules/5" element={<ProtectedRoute><CBTExercise5 /></ProtectedRoute>} />
             <Route path="/journal" element={<ProtectedRoute><Journal /></ProtectedRoute>} />
             <Route path="/resources" element={<ProtectedRoute><Resources /></ProtectedRoute>} />
+            <Route path="/support" element={<ProtectedRoute><Support /></ProtectedRoute>} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

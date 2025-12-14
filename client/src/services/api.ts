@@ -22,6 +22,7 @@ export interface AuthResponse {
   token: string;
   user: {
     id: string;
+    name: string;
     email: string;
     createdAt: string;
     role: string;
@@ -54,6 +55,13 @@ export interface CBTProgress {
   completedAt?: string;
   createdAt?: string;
   updatedAt?: string;
+}
+
+export interface Message {
+  userId: string;
+  username: string;
+  message: string;
+  timestamp: string;
 }
 
 // Create axios instance
@@ -302,6 +310,27 @@ export const cbtAPI = {
         { moduleId, completed }
       );
       return response.data.data!;
+    } catch (error) {
+      throw handleApiError(error);
+    }
+  },
+};
+
+// ============================================================================
+// MESSAGES ENDPOINTS
+// ============================================================================
+
+export const messagesAPI = {
+  /**
+   * Get all messages for current user (support chat history)
+   * @returns Array of messages
+   */
+  getMessages: async (): Promise<Message[]> => {
+    try {
+      const response = await apiClient.get<ApiResponse<Message[]>>(
+        "/messages"
+      );
+      return response.data.data || [];
     } catch (error) {
       throw handleApiError(error);
     }

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Wind, Heart, BookOpen, MapPin, Shield, FileText } from "lucide-react";
+import { Wind, Heart, BookOpen, MapPin, Shield, FileText, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -63,7 +63,7 @@ const Index = () => {
           <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-center mb-6 sm:mb-8 text-foreground animate-fade-in text-shadow-card">
             Your Toolkit for Recovery
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {/* Breathing Exercises */}
             <Link to="/breathing" className="group">
               <Card className="p-5 sm:p-6 h-full hover:shadow-medium transition-all duration-300 cursor-pointer border-primary/20 hover:border-primary/40 hover:scale-105 animate-fade-in">
@@ -131,8 +131,21 @@ const Index = () => {
               </Card>
             </Link>
 
+            {/* Live Support */}
+            <Link to="/support" className="group">
+              <Card className="p-5 sm:p-6 h-full hover:shadow-medium transition-all duration-300 cursor-pointer border-accent/20 hover:border-accent/40 hover:scale-105 animate-fade-in [animation-delay:600ms]">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-accent/10 flex items-center justify-center mb-3 sm:mb-4 group-hover:bg-accent/20 transition-colors">
+                  <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-accent" />
+                </div>
+                <h4 className="text-lg sm:text-xl md:text-2xl font-semibold mb-2 text-foreground text-shadow-card">Live Support</h4>
+                <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed">
+                  Chat with our support team in real-time for immediate help and guidance.
+                </p>
+              </Card>
+            </Link>
+
             {/* About CBT */}
-            <Card className="p-5 sm:p-6 h-full border-muted bg-muted/30 animate-fade-in [animation-delay:400ms]">
+            <Card className="p-5 sm:p-6 h-full border-muted bg-muted/30 animate-fade-in [animation-delay:700ms]">
               <img
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
                 alt="Open book representing learning about CBT therapy"

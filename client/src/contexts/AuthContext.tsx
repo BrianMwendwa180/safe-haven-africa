@@ -8,6 +8,7 @@ import { authAPI, AuthResponse } from "@/services/api";
 
 interface User {
   id: string;
+  name: string;
   email: string;
   createdAt: string;
   role: string;
