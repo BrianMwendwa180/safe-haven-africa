@@ -1,144 +1,121 @@
-## Resilience Hub
+# Resilience Hub 
 
-Front-end URL =
+A **privacy‑focused mental health web application** designed to support survivors of digital harm across Africa through anonymous access to CBT tools, guided breathing, journaling, and verified crisis resources.
 
-## About
+---
 
-Resilience Hub is a web application designed to support survivors of digital harm by providing safe, anonymous tools for mental health recovery and resilience building. It addresses theme No.2 "Survivor Support" theme by offering guidance through therapeutic exercises, connection to local help resources, and secure documentation in a completely private environment.
+## 🌍 Problem
 
-### Functionality
+Survivors of online abuse, harassment, and digital harm often face:
 
-- **Breathing Exercises**: Immediate calming techniques for anxiety and panic, helping users feel grounded during moments of distress.
-- **CBT Modules**: 5 evidence-based cognitive behavioral therapy exercises specifically designed for processing digital trauma and rebuilding mental resilience.
-- **Journal**: A private, encrypted space for users to document their personal journeys and thoughts securely.
-- **Resources**: Access to verified crisis hotlines, counseling centers, NGOs, and legal aid services across African regions.
+* Fear of exposure when seeking help
+* Limited access to affordable mental‑health support
+* Lack of region‑specific crisis resources in Africa
 
-## Application Functionality Flow
+Safe Haven Africa addresses this by providing **anonymous, secure, and trauma‑informed mental health support** without requiring users to reveal their identity.
 
-```mermaid
-graph TD;
-    A[User Enters Resilience Hub] --> B[Breathing Exercises];
-    A --> C[CBT Modules];
-    C --> C1[CBT Exercise 1];
-    C --> C2[CBT Exercise 2];
-    C --> C3[CBT Exercise 3];
-    C --> C4[CBT Exercise 4];
-    C --> C5[CBT Exercise 5];
-    A --> D[Journal];
-    A --> E[Resources];
+---
+
+## ✨ Key Features
+
+* 🔐 **Anonymous Authentication** – Users can access support without exposing personal identity
+* 🧠 **CBT Modules** – Evidence‑based cognitive behavioral therapy exercises
+* 🌬️ **Guided Breathing Exercises** – Grounding tools for anxiety and panic
+* 📓 **Private Journaling** – Secure space for emotional reflection
+* 🚨 **African Crisis Resources** – Localized helplines and support organizations
+* 🛡️ **Privacy‑First Design** – No tracking, minimal data collection
+
+---
+## 📸 Screenshots
+### Dahboard Page
+![dashboard Page](dashboard.png.jpg)
+### CBT Page
+![CBT Page](cbt.png.jpg)
+### Crisis Resources
+![Crisis Resources](resource.png.jpg)
+
+---
+## 👥 Demo Access
+
+To allow full evaluation of the platform, please use the demo credentials below:
+
+```
+Email: demo@safehaven.app
+Password: demo1234
 ```
 
-The application prioritizes user privacy with no tracking, no data collection, and full anonymity to ensure a supportive space for recovery.
+> ⚠️ Demo account is read‑only. Data may reset periodically.
 
+---
 
+## 🧪 How to Explore the App
 
-Follow these steps:
+1. Visit: [https://safe-haven-africa.vercel.app](https://safe-haven-africa.vercel.app)
+2. Log in using the demo credentials above
+3. Watch the demo vedio here: [https://youtu.be/IraZwlWeJ9w]
+5. Navigate through:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+   * CBT modules
+   * Breathing exercises
+   * Journaling interface
+   * Crisis resources section
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+---
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 🛠️ Tech Stack
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+**Frontend:**
 
-**Edit a file directly in GitHub**
+* Typescript
+* React js
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+**Backend:**
 
-**Use GitHub Codespaces**
+* Node.js
+* Express js
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+**Database:**
 
-## What technologies are used for this project?
+* MongoDB
 
-This project is built with:
+**Deployment:**
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+* Vercel
 
-## Authentication & Email OTP Setup
+---
 
-This project includes a complete authentication flow:
-1. **Sign Up**: New users create an account with username, email, and password.
-2. **Login**: Users login with email and password; a 6-digit OTP is sent to their email.
-3. **Verify**: Users enter the OTP to complete login and access the app.
+## 🤝 Team Collaboration
 
-### Running the application locally
+This project was built collaboratively as a team effort. Contributions included:
 
-You need to run both the frontend and the email relay backend.
+* UI/UX design and trauma‑informed user flows
+* Frontend feature implementation
+* Backend authentication and security
+* Resource research and localization for Africa
 
-**Step 1: Setup SMTP credentials**
-Copy `server/.env.example` to `server/.env` and add your SMTP credentials:
+---
 
-```bash
-# Using SendGrid SMTP:
-SERVER_PORT=4000
-SMTP_HOST=smtp.sendgrid.net
-SMTP_PORT=587
-SMTP_SECURE=false
-SMTP_USER=apikey
-SMTP_PASS=YOUR_SENDGRID_API_KEY
-FROM_EMAIL=noreply@yourdomain.com
-```
+## 💡 Impact
 
-Or use Gmail (requires app password):
-```bash
-SERVER_PORT=4000
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_SECURE=false
-SMTP_USER=your.email@gmail.com
-SMTP_PASS=your_app_password
-FROM_EMAIL=your.email@gmail.com
-```
+* Increased anonymous access to mental‑health tools
+* Reduced barriers to seeking help for survivors of digital harm
+* Improved emotional self‑regulation and awareness
 
-**Step 2: Install and run the email relay server**
-```powershell
-cd server
-npm install
-npm run dev
-# Server runs on http://localhost:4000
-```
+---
 
-**Step 3: In another terminal, run the frontend**
-```powershell
-cd ..
-npm install
-npm run dev
-# Open http://localhost:5173 (or the URL Vite shows)
-```
+## 🔮 Future Improvements
 
-### Testing the flow
+* Guest mode access for faster onboarding
+* Offline‑friendly resources
+* Multi‑language support
+* Professional therapist integration
 
-1. **First visit**: You'll be redirected to `/signup`.
-2. **Sign up**: Enter username, email, password → you'll be sent to `/login`.
-3. **Login**: Email and password are prefilled. Click "Send verification code" → OTP is emailed to your inbox.
-4. **Verify**: Enter the 6-digit OTP from your email → you'll land on the homepage.
-5. **Return visits**: If users already exist, you'll go to `/login` directly (skip signup).
+---
 
-### Security notes
+## 📬 Contact
 
-- **Client-side demo**: User credentials are stored in `localStorage` (plaintext). For production, use a backend database with bcrypt password hashing.
-- **Email relay**: The `server/index.js` relays OTPs via SMTP. Never expose SMTP credentials to the client — keep them in `server/.env` only.
-- **Optional env var**: To change the server URL from the default `http://localhost:4000`, add `VITE_EMAIL_SERVER_URL=...` to `.env.local` and restart the frontend.
+For questions or feedback:
 
+**Email: Lynnkati18@gmail.com**
 
-
-
-
+---
